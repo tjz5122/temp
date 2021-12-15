@@ -61,7 +61,7 @@ command_list = [shlex.split(comm) for comm in command_list]
 # List all the GPUs you have
 
 
-ids_cuda = [4,5,6,7]
+ids_cuda = [4]
 for c in ids_cuda:
     env = os.environ.copy()
     env['CUDA_VISIBLE_DEVICES'] = str(c)
