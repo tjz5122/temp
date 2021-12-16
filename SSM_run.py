@@ -22,9 +22,9 @@ def run_command(env):
 
 
 test_param_groups = {}
-test_param_groups["model_group"] = ['mgnet128']                 #SASA+: 2,4,8,16
+test_param_groups["model_group"] = ['mgnet256']                 #SASA+: 2,4,8,16
 test_param_groups["lr_group"] = [1.0]
-test_param_groups["wd_group"] = [0.0005] #SASA+: 0.0005
+test_param_groups["wd_group"] = [0.0001] #SASA+: 0.0005
 test_param_groups["trail_group"] = [1]
 test_param_groups["drop_factor_group"] = [10]           #SASA+: 2,5,10
 test_param_groups["batch_size_group"] = [128]
@@ -33,7 +33,7 @@ test_param_groups["leaky_group"] = [8]                 #SASA+: 2,4,8,16
 test_param_groups["momentum_group"] = [0.9]
 test_param_groups["dampening_group"] = [0.9]
 test_param_groups["significance_group"] = [0.05]          #SASA+ : 0.001,0.01,0.05,0.1
-test_param_groups["samplefreq_group"] = [10,15]
+test_param_groups["samplefreq_group"] = [10]
 test_param_groups["truncate_group"] = [0.02]
 test_param_groups["ministat_group"] = [100]
 test_param_groups["keymode_group"] = ["loss_plus_smooth"]
