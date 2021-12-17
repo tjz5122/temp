@@ -38,7 +38,7 @@ test_param_groups["truncate_group"] = [0.02]
 test_param_groups["ministat_group"] = [100]
 test_param_groups["keymode_group"] = ["loss_plus_smooth"]
 test_param_groups["varmode_group"] = ["bm"]
-test_param_groups["data_group"] = ["cifar10"]
+test_param_groups["data_group"] = ["cifar10", "cifar100"]
 
 
 
