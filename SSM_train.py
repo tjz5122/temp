@@ -676,18 +676,35 @@ def main():
         sign_dampening = '09'
     elif args.dampening == 0.0:
         sign_dampening = '00'
+    if args.lr == 1:
+        sign_lr = '10'
+    elif args.lr == 0.1:
+        sign_lr = '01'
+    if args.wd == 0.0001:
+        sign_wd = '00001'
+    elif args.wd == 0.0005:
+        sign_wd = '00005'
     loglr_list = list(np.log10(np.array(lr_list)))
+    
+   
     
     print('complete')
     # example of files for training  
     f = open("SSM_train_data", 'a')
+    """
     f.write('{}_trun{}_lk{}_sf{}_d{}_testaccu = {}\n'.format(args.model, sign_trun, args.lk, args.samplefreq, sign_dampening, test_accuracy_list))
     f.write('{}_trun{}_lk{}_sf{}_d{}_loglr = {}\n'.format(args.model, sign_trun, args.lk, args.samplefreq, sign_dampening, loglr_list))
     f.write('{}_trun{}_lk{}_sf{}_d{}_stat = {}\n'.format(args.model, sign_trun, args.lk, args.samplefreq, sign_dampening, statistic_list))
     f.write('{}_trun{}_lk{}_sf{}_d{}_loss = {}\n'.format(args.model, sign_trun, args.lk, args.samplefreq, sign_dampening, avg_loss_list))
     f.write('{}_trun{}_lk{}_sf{}_d{}_time = {}\n'.format(args.model, sign_trun, args.lk, args.samplefreq, sign_dampening, time_list))
     f.write("\n")
-
+    """
+    f.write('{}_lr{}_wd{}_data{}_testaccu = {}\n'.format(args.model, sign_lr, sign_wd, args.data, test_accuracy_list))
+    f.write('{}_lr{}_wd{}_data{}__loglr = {}\n'.format(args.model, sign_lr, sign_wd, args.data, loglr_list))
+    f.write('{}_lr{}_wd{}_data{}__stat = {}\n'.format(args.model, sign_lr, sign_wd, args.data, statistic_list))
+    f.write('{}_lr{}_wd{}_data{}__loss = {}\n'.format(args.model, sign_lr, sign_wd, args.data, avg_loss_list))
+    f.write('{}_lr{}_wd{}_data{}_time = {}\n'.format(args.model, sign_lr, sign_wd, args.data, time_list))
+    f.write("\n")
     f.close()
 
 main()
