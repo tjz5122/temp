@@ -680,9 +680,9 @@ def main():
         sign_lr = '10'
     elif args.lr == 0.1:
         sign_lr = '01'
-    if args.wd == 0.0001:
+    if args.weight_decay == 0.0001:
         sign_wd = '00001'
-    elif args.wd == 0.0005:
+    elif args.weight_decay == 0.0005:
         sign_wd = '00005'
     loglr_list = list(np.log10(np.array(lr_list)))
     
