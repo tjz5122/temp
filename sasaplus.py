@@ -327,7 +327,7 @@ class SASAplus(QHM):
         warmup (int, optional): number of steps before testing (default: 100)
         dropfactor (float, optional): factor of drop learning rate (default: 10)
         significance (float, optional): test significance level (default:0.05)  
-        var_mode (string, optional): variance computing mode (default: 'mb')
+        var_mode (string, optional): variance computing mode (default: 'bm')
         leak_ratio (int, optional): leaky bucket ratio to kept (default: 8)
         minN_stats (int, optional): min number of samples for test (default: 1000)
         testfreq (int, optional): number of steps between testing (default:100)
@@ -341,7 +341,7 @@ class SASAplus(QHM):
     """
 
     def __init__(self, params, lr=-1, momentum=0, dampening=0, qhm_nu=1, weight_decay=0, 
-                 warmup=1000, drop_factor=10, significance=0.05, var_mode='mb',
+                 warmup=1000, drop_factor=10, significance=0.05, var_mode='bm',
                  leak_ratio=8, minN_stats=1000, testfreq=100, logstats=0):
 
         if lr <= 0:
@@ -354,8 +354,8 @@ class SASAplus(QHM):
             raise ValueError("Invalid value for drop_factor (>=1): {}".format(drop_factor))
         if significance <= 0 or significance >= 1:
             raise ValueError("Invalid value for significance (0,1): {}".format(significance))
-        if var_mode not in ['mb', 'olbm', 'iid']:
-            raise ValueError("Invalid value for var_mode ('mb', 'olmb', or 'iid'): {}".format(var_mode))
+        if var_mode not in ['bm', 'olbm', 'iid']:
+            raise ValueError("Invalid value for var_mode ('bm', 'olbm', or 'iid'): {}".format(var_mode))
         if leak_ratio < 1:
             raise ValueError("Invalid value for leak_ratio (int, >=1): {}".format(leak_ratio))
         if minN_stats < 100:
