@@ -9,6 +9,7 @@ import numpy as np
 import torchvision
 from timeit import default_timer as timer
 import argparse
+from pytorchtools import EarlyStopping
 
 use_cuda = torch.cuda.is_available()
 print('Use GPU?', use_cuda)
@@ -545,6 +546,7 @@ def main():
         my_model = ResNet(BasicBlock, [2,2,2,2], num_classes=num_classes)
     elif args.model  == 'resnet34':
         my_model = ResNet(BasicBlock, [3,4,6,3], num_classes=num_classes)
+    '''
     elif args.model  == 'preactresnet18':
         my_model = PreActResNet18()
     elif args.model  == 'preactresnet34':
@@ -555,7 +557,7 @@ def main():
         my_model = models.densenet161()
     elif args.model  == 'efficientnet':
         my_model = EfficientNet.from_pretrained('efficientnet-b0')
-        
+    '''
 
     if use_cuda:
         my_model = my_model.cuda()
@@ -597,6 +599,9 @@ def main():
     statistic_list = []
     avg_loss_list = []
     time_list = []
+    valid_losses = []
+    patience = 20
+    early_stopping = EarlyStopping(patience=patience, verbose=True)
     
     
     #Step 4: Train the NNs
@@ -617,12 +622,15 @@ def main():
                 outputs = my_model(images) 
             loss = criterion(outputs, labels)
             optimizer.state['loss'] = loss.item()
+            valid_losses.append(loss.item())
             # Backward and compute the gradient
             optimizer.zero_grad()
             loss.backward()  #backpropragation
             running_loss += loss.item()
             optimizer.step() #update the weights/parameters
         avg_loss_list.append(running_loss)
+        avg_valid_loss = np.average(valid_losses)
+        early_stopping(avg_valid_loss, my_model)
           
         # Training accuracy
         my_model.eval()
@@ -666,7 +674,10 @@ def main():
         statistic_list.append(optimizer.state['statistic'])
         lr_list.append(optimizer.state['lr'])
         time_list.append(end - start)
-            
+        
+        if early_stopping.early_stop:
+            print("Early stopping")
+            break
     
     if args.trun == 0.02:
         sign_trun = '002'
