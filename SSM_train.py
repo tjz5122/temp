@@ -9,7 +9,7 @@ import numpy as np
 import torchvision
 from timeit import default_timer as timer
 import argparse
-from pytorchtools import EarlyStopping
+from early_stopping import EarlyStopping
 
 use_cuda = torch.cuda.is_available()
 print('Use GPU?', use_cuda)
