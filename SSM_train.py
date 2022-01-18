@@ -11,11 +11,14 @@ from timeit import default_timer as timer
 import argparse
 from early_stopping import EarlyStopping
 
+from ssm import SSM
+from mgnet import MgNet
+from resnet import ResNet
+from resnet import BasicBlock
+
+    
 use_cuda = torch.cuda.is_available()
 print('Use GPU?', use_cuda)
-
-
-
 
 ###args
 def get_args():
