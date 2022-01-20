@@ -258,11 +258,11 @@ def main():
     f.write('{}_trun{}_lk{}_sf{}_d{}_time = {}\n'.format(args.model, sign_trun, args.lk, args.samplefreq, sign_dampening, time_list))
     f.write("\n")
     """
-    f.write('{}_lr{}_wd{}_data{}_testaccu = {}\n'.format(args.model, sign_lr, sign_wd, args.data, test_accuracy_list))
-    f.write('{}_lr{}_wd{}_data{}__loglr = {}\n'.format(args.model, sign_lr, sign_wd, args.data, loglr_list))
-    f.write('{}_lr{}_wd{}_data{}__stat = {}\n'.format(args.model, sign_lr, sign_wd, args.data, statistic_list))
-    f.write('{}_lr{}_wd{}_data{}__loss = {}\n'.format(args.model, sign_lr, sign_wd, args.data, avg_loss_list))
-    f.write('{}_lr{}_wd{}_data{}_time = {}\n'.format(args.model, sign_lr, sign_wd, args.data, time_list))
+    f.write('ssm_{}_lr{}_wd{}_data{}_testaccu = {}\n'.format(args.model, sign_lr, sign_wd, args.data, test_accuracy_list))
+    f.write('ssm_{}_lr{}_wd{}_data{}_loglr = {}\n'.format(args.model, sign_lr, sign_wd, args.data, loglr_list))
+    f.write('ssm_{}_lr{}_wd{}_data{}_stat = {}\n'.format(args.model, sign_lr, sign_wd, args.data, statistic_list))
+    f.write('ssm_{}_lr{}_wd{}_data{}_loss = {}\n'.format(args.model, sign_lr, sign_wd, args.data, avg_loss_list))
+    f.write('ssm_{}_lr{}_wd{}_data{}_time = {}\n'.format(args.model, sign_lr, sign_wd, args.data, time_list))
     f.write("\n")
     f.close()
 
