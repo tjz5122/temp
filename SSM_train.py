@@ -270,9 +270,8 @@ def main():
     f.write("\n")
     f.close()
     """
-    f.write(test_accuracy_list)
-    f.write("\n")
-    f.write(loglr_list)
+    f.write("lr{}_testaccu = {}\n".format(sign_lr,test_accuracy_list))
+    f.write("lr{}_loglr = {}\n".format(sign_lr,loglr_list))
     f.write("\n")
     
     
