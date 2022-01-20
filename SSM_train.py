@@ -149,6 +149,7 @@ def main():
     time_list = []
     valid_losses = []
     patience = 20
+    stopped_epoch = 0
     early_stopping = EarlyStopping(patience=patience, verbose=True)
     
     
@@ -224,7 +225,7 @@ def main():
         time_list.append(end - start)
         
         if early_stopping.early_stop:
-            print("Early stopping")
+            stopped_epoch = epoch
             break
     
     if args.trun == 0.02:
@@ -263,6 +264,7 @@ def main():
     f.write('ssm_{}_lr{}_wd{}_data{}_stat = {}\n'.format(args.model, sign_lr, sign_wd, args.data, statistic_list))
     f.write('ssm_{}_lr{}_wd{}_data{}_loss = {}\n'.format(args.model, sign_lr, sign_wd, args.data, avg_loss_list))
     f.write('ssm_{}_lr{}_wd{}_data{}_time = {}\n'.format(args.model, sign_lr, sign_wd, args.data, time_list))
+    f.write('ssm_{}_lr{}_wd{}_data{}_stoppedepoch = {}\n'.format(args.model, sign_lr, sign_wd, args.data, stopped_epoch))
     f.write("\n")
     f.close()
 
