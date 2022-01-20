@@ -259,6 +259,8 @@ def main():
     f.write('{}_trun{}_lk{}_sf{}_d{}_time = {}\n'.format(args.model, sign_trun, args.lk, args.samplefreq, sign_dampening, time_list))
     f.write("\n")
     """
+    
+    """
     f.write('ssm_{}_lr{}_wd{}_data{}_testaccu = {}\n'.format(args.model, sign_lr, sign_wd, args.data, test_accuracy_list))
     f.write('ssm_{}_lr{}_wd{}_data{}_loglr = {}\n'.format(args.model, sign_lr, sign_wd, args.data, loglr_list))
     f.write('ssm_{}_lr{}_wd{}_data{}_stat = {}\n'.format(args.model, sign_lr, sign_wd, args.data, statistic_list))
@@ -267,6 +269,13 @@ def main():
     f.write('ssm_{}_lr{}_wd{}_data{}_stoppedepoch = {}\n'.format(args.model, sign_lr, sign_wd, args.data, stopped_epoch))
     f.write("\n")
     f.close()
+    """
+    f.write(test_accuracy_list)
+    f.write("\n")
+    f.write(loglr_list)
+    f.write("\n")
+    
+    
 
 main()
 
