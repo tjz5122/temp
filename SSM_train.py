@@ -67,7 +67,7 @@ def get_args():
     parser.add_argument('--model', type=str, help='mgnet128, resnet34 or preresnet18', default='mgnet128')
     
     # For stopping criteria
-    parser.add_argument('--valid-size', "--vs", default=0.2, type=float , help='percentage of training set to use as validation(e.g. 0.2)')
+    parser.add_argument('--valid-size', "--vs", default=0.2, type=float, metavar='P', help='percentage of training set to use as validation(e.g. 0.2)')
     
     parser.add_argument('--patience', default=30, type=int, help='patience (default: 30)')
     
@@ -146,7 +146,7 @@ def main():
     num_train = len(trainset)
     indices = list(range(num_train))
     np.random.shuffle(indices)
-    split = int(np.floor(args.vs * num_train))
+    split = int(np.floor(args.valid_size * num_train))
     train_idx, valid_idx = indices[split:], indices[:split]
     
     # define samplers for obtaining training and validation batches
