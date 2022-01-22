@@ -9,6 +9,9 @@ import numpy as np
 import torchvision
 from timeit import default_timer as timer
 import argparse
+from torchvision import datasets
+import torchvision.transforms as transforms
+from torch.utils.data.sampler import SubsetRandomSampler
 from early_stopping import EarlyStopping
 
 from ssm import SSM
@@ -123,10 +126,8 @@ def main():
                                                           normalize])
         transform_test  = torchvision.transforms.Compose([torchvision.transforms.ToTensor(),normalize])
         trainset = torchvision.datasets.CIFAR10(root='./data', train=True, download=True, transform=transform_train)
-        trainloader = torch.utils.data.DataLoader(trainset, batch_size=minibatch_size, shuffle=True)
         testset = torchvision.datasets.CIFAR10(root='./data', train=False, download=True, transform=transform_test)
-        testloader = torch.utils.data.DataLoader(testset, batch_size=minibatch_size, shuffle=False)
-    
+
     if args.data == 'cifar100':
         normalize = torchvision.transforms.Normalize(mean=(0.5071, 0.4867, 0.4408), std=(0.2675, 0.2565, 0.2761))
         transform_train = torchvision.transforms.Compose([torchvision.transforms.RandomCrop(32, padding=4),
@@ -135,11 +136,33 @@ def main():
                                                           normalize])
         transform_test  = torchvision.transforms.Compose([torchvision.transforms.ToTensor(),normalize])
         trainset = torchvision.datasets.CIFAR100(root='./data', train=True, download=True, transform=transform_train)
-        trainloader = torch.utils.data.DataLoader(trainset, batch_size=minibatch_size, shuffle=True)
         testset = torchvision.datasets.CIFAR100(root='./data', train=False, download=True, transform=transform_test)
-        testloader = torch.utils.data.DataLoader(testset, batch_size=minibatch_size, shuffle=False)
+
+
+    # obtain training indices that will be used for validation
+    valid_size = 0.2    # percentage of training set to use as validation
+    patience = 7
+    delta  = 0.0005
+    num_train = len(trainset)
+    indices = list(range(num_train))
+    np.random.shuffle(indices)
+    split = int(np.floor(valid_size * num_train))
+    train_idx, valid_idx = indices[split:], indices[:split]
     
+    # define samplers for obtaining training and validation batches
+    train_sampler = SubsetRandomSampler(train_idx)
+    valid_sampler = SubsetRandomSampler(valid_idx)
     
+    # define samplers for obtaining training and validation batches
+    train_sampler = SubsetRandomSampler(train_idx)
+    valid_sampler = SubsetRandomSampler(valid_idx)
+        
+    # load validation data in batches
+    trainloader = torch.utils.data.DataLoader(trainset, batch_size=minibatch_size, sampler=train_sampler ,num_workers=0, shuffle=True)        
+    valid_loader = torch.utils.data.DataLoader(trainset, batch_size=minibatch_size, sampler=valid_sampler, num_workers=0)
+    testloader = torch.utils.data.DataLoader(testset, batch_size=minibatch_size, shuffle=False)
+    
+    # define the optimizer
     optimizer = SSM(my_model.parameters(), lr=args.lr, weight_decay=args.weight_decay, momentum=args.momentum, dampening=args.dampening, testfreq=len(trainloader), var_mode=args.varmode, leak_ratio=args.lk, minN_stats=args.minstat, mode=args.keymode, samplefreq=args.samplefreq, significance=args.sig, drop_factor=args.drop, trun=args.trun)
 
     test_accuracy_list = []
@@ -148,9 +171,8 @@ def main():
     avg_loss_list = []
     time_list = []
     valid_losses = []
-    patience = 20
     stopped_epoch = 0
-    early_stopping = EarlyStopping(patience=patience, verbose=True)
+    early_stopping = EarlyStopping(patience=patience, delta=delta , verbose=True)
     
     
     #Step 4: Train the NNs
@@ -171,18 +193,32 @@ def main():
                 outputs = my_model(images) 
             loss = criterion(outputs, labels)
             optimizer.state['loss'] = loss.item()
-            valid_losses.append(loss.item())
             # Backward and compute the gradient
             optimizer.zero_grad()
             loss.backward()  #backpropragation
             running_loss += loss.item()
             optimizer.step() #update the weights/parameters
         avg_loss_list.append(running_loss)
-        avg_valid_loss = np.average(valid_losses)
-        early_stopping(avg_valid_loss, my_model)
+        
           
-        # Training accuracy
+        # validate the model
         my_model.eval()
+        for images, labels in valid_loader:
+            # forward pass: compute predicted outputs by passing inputs to the model
+            if (args.model == "mgnet128") or (args.model == "mgnet256"):
+                outputs = my_model(0,images)   # We need additional 0 input for u in MgNet
+            else:
+                outputs = my_model(images) 
+            # calculate the loss
+            loss = criterion(outputs, labels)
+            # record validation loss
+            valid_losses.append(loss.item())
+        avg_valid_loss = np.average(valid_losses)
+        valid_losses = []
+        early_stopping(avg_valid_loss, my_model)
+        
+        
+        # Training accuracy
         correct = 0
         total = 0
         for i, (images, labels) in enumerate(trainloader):
@@ -216,6 +252,7 @@ def main():
               total += labels.size(0)
               correct += (predicted == labels).sum()
         test_accuracy = float(correct)/total
+        
         end = timer()
         
  
@@ -272,6 +309,7 @@ def main():
     """
     f.write("lr{}_testaccu = {}\n".format(sign_lr,test_accuracy_list))
     f.write("lr{}_loglr = {}\n".format(sign_lr,loglr_list))
+    f.write("lr{}_stopped_epoch = {}\n".format(sign_lr, stopped_epoch))
     f.write("\n")
     
     
