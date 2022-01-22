@@ -158,7 +158,7 @@ def main():
     valid_sampler = SubsetRandomSampler(valid_idx)
         
     # load validation data in batches
-    trainloader = torch.utils.data.DataLoader(trainset, batch_size=minibatch_size, sampler=train_sampler ,num_workers=0, shuffle=True)        
+    trainloader = torch.utils.data.DataLoader(trainset, batch_size=minibatch_size, sampler=train_sampler ,num_workers=0)        
     valid_loader = torch.utils.data.DataLoader(trainset, batch_size=minibatch_size, sampler=valid_sampler, num_workers=0)
     testloader = torch.utils.data.DataLoader(testset, batch_size=minibatch_size, shuffle=False)
     
