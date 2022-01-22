@@ -136,7 +136,7 @@ def main():
 
     # obtain training indices that will be used for validation
     valid_size = 0.2    # percentage of training set to use as validation
-    patience = 7
+    patience = 30
     delta  = 0.0005
     num_train = len(trainset)
     indices = list(range(num_train))
