@@ -2,15 +2,10 @@
 import math
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
-from torch.optim import Optimizer
-from scipy import stats
 import numpy as np
 import torchvision
 from timeit import default_timer as timer
 import argparse
-from torchvision import datasets
-import torchvision.transforms as transforms
 from torch.utils.data.sampler import SubsetRandomSampler
 from early_stopping import EarlyStopping
 
@@ -204,6 +199,9 @@ def main():
         # validate the model
         my_model.eval()
         for images, labels in valid_loader:
+            if use_cuda:
+              images = images.cuda()
+              labels = labels.cuda()
             # forward pass: compute predicted outputs by passing inputs to the model
             if (args.model == "mgnet128") or (args.model == "mgnet256"):
                 outputs = my_model(0,images)   # We need additional 0 input for u in MgNet
