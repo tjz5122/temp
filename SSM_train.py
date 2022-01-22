@@ -66,6 +66,14 @@ def get_args():
     # For models    
     parser.add_argument('--model', type=str, help='mgnet128, resnet34 or preresnet18', default='mgnet128')
     
+    # For stopping criteria
+    parser.add_argument('--valid-size', "--vs", default=0.2, type=float , help='percentage of training set to use as validation(e.g. 0.2)')
+    
+    parser.add_argument('--patience', default=30, type=int, help='patience (default: 30)')
+    
+    parser.add_argument('--delta', default=0.0005, type=float , help='delta of the earily stopped(e.g. 0.2)')
+    
+    
     return parser.parse_args()
 
 
@@ -135,13 +143,10 @@ def main():
 
 
     # obtain training indices that will be used for validation
-    valid_size = 0.2    # percentage of training set to use as validation
-    patience = 30
-    delta  = 0.0005
     num_train = len(trainset)
     indices = list(range(num_train))
     np.random.shuffle(indices)
-    split = int(np.floor(valid_size * num_train))
+    split = int(np.floor(args.vs * num_train))
     train_idx, valid_idx = indices[split:], indices[:split]
     
     # define samplers for obtaining training and validation batches
@@ -167,7 +172,7 @@ def main():
     time_list = []
     valid_losses = []
     stopped_epoch = 0
-    early_stopping = EarlyStopping(patience=patience, delta=delta , verbose=True)
+    early_stopping = EarlyStopping(patience=args.patience, delta=args.delta , verbose=True)
     
     
     #Step 4: Train the NNs
