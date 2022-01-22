@@ -39,15 +39,21 @@ test_param_groups["ministat_group"] = [100]
 test_param_groups["keymode_group"] = ["loss_plus_smooth"]
 test_param_groups["varmode_group"] = ["bm"]
 test_param_groups["data_group"] = ["cifar10"] #["cifar10", "cifar100"]
+test_param_groups["validsize_group"] = [0.2] 
+test_param_groups["patience_group"] = [20,30,40,50] 
+test_param_groups["delta_group"] = [0] 
+
+
 
 
 
 # flexible
 ordered_param_group = ['model_group', 'lr_group', 'wd_group', 'trail_group', 'drop_factor_group', 'batch_size_group', 'epochs_group', 'leaky_group', 'momentum_group', 
-                       'dampening_group', 'significance_group', 'samplefreq_group', 'truncate_group', 'ministat_group', 'keymode_group', 'varmode_group', 'data_group' ]
+                       'dampening_group', 'significance_group', 'samplefreq_group', 'truncate_group', 'ministat_group', 'keymode_group', 'varmode_group', 'data_group', 
+                       'validsize_group', 'patience_group', 'delta_group']
 value_list = [test_param_groups[group] for group in ordered_param_group]
 test_list = list(product(*value_list))
-command = 'python SSM_train.py --cuda --model={} --lr={} --wd={} --trail={} --drop={} --batchsize={} --epochs={} --lk={} --momentum={} --dampening={} --sig={} --sf={} --trun={} --minstat={} --km={} --vm={} --data={}'
+command = 'python SSM_train.py --cuda --model={} --lr={} --wd={} --trail={} --drop={} --batchsize={} --epochs={} --lk={} --momentum={} --dampening={} --sig={} --sf={} --trun={} --minstat={} --km={} --vm={} --data={} --vs={} --patience={} --delta={}'
 # flexible
 
 print("the total combinations of hyperparamater is", len(test_list))
