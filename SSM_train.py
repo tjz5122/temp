@@ -310,9 +310,9 @@ def main():
     f.write("\n")
     f.close()
     """
-    f.write("lr{}_testaccu = {}\n".format(sign_lr,test_accuracy_list))
-    f.write("lr{}_loglr = {}\n".format(sign_lr,loglr_list))
-    f.write("lr{}_stopped_epoch = {}\n".format(sign_lr, stopped_epoch))
+    f.write("wd{}_p{}_testaccu = {}\n".format(sign_wd, args.patience, test_accuracy_list))
+    f.write("wd{}_p{}_loglr = {}\n".format(sign_wd, args.patience, loglr_list))
+    f.write("wd{}_p{}_stopped_epoch = {}\n".format(sign_wd, args.patience, stopped_epoch))
     f.write("\n")
     
     
