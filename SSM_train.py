@@ -287,13 +287,13 @@ def main():
     loglr_list = list(np.log10(np.array(lr_list)))
     
     if args.delta == 0:
-        sign_delta = 0
+        sign_delta = "0"
     elif args.delta == 0.0001:
-        sign_delta = 00001
+        sign_delta = "00001"
     elif args.delta == 0.0003:
-        sign_delta = 00003
+        sign_delta = "00003"
     elif args.delta == 0.0005:
-        sign_delta = 00005
+        sign_delta = "00005"
     
     
    
