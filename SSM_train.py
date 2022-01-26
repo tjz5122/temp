@@ -286,6 +286,16 @@ def main():
         sign_wd = '00005'
     loglr_list = list(np.log10(np.array(lr_list)))
     
+    if args.delta == 0:
+        sign_delta = 0
+    elif args.delta == 0.0001:
+        sign_delta = 00001
+    elif args.delta == 0.0003:
+        sign_delta = 00003
+    elif args.delta == 0.0005:
+        sign_delta = 00005
+    
+    
    
     
     print('complete')
@@ -310,9 +320,9 @@ def main():
     f.write("\n")
     f.close()
     """
-    f.write("wd{}_p{}_testaccu = {}\n".format(sign_wd, args.patience, test_accuracy_list))
-    f.write("wd{}_p{}_loglr = {}\n".format(sign_wd, args.patience, loglr_list))
-    f.write("wd{}_p{}_stopped_epoch = {}\n".format(sign_wd, args.patience, stopped_epoch))
+    f.write("mgnet256_{}_wd{}_p{}_delta{}_testaccu = {}\n".format(args.data, sign_wd, args.patience, sign_delta, test_accuracy_list))
+    f.write("mgnet256_{}_wd{}_p{}_delta{}_loglr = {}\n".format(args.data, sign_wd, args.patience, sign_delta, loglr_list))
+    f.write("mgnet256_{}_wd{}_p{}_delta{}_stopped_epoch = {}\n".format(args.data, sign_wd, args.patience, sign_delta, stopped_epoch))
     f.write("\n")
     
     
