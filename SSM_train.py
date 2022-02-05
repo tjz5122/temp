@@ -323,6 +323,8 @@ def main():
     f.write("mgnet256_{}_wd{}_p{}_delta{}_testaccu = {}\n".format(args.data, sign_wd, args.patience, sign_delta, test_accuracy_list))
     f.write("mgnet256_{}_wd{}_p{}_delta{}_loglr = {}\n".format(args.data, sign_wd, args.patience, sign_delta, loglr_list))
     f.write("mgnet256_{}_wd{}_p{}_delta{}_stopped_epoch = {}\n".format(args.data, sign_wd, args.patience, sign_delta, stopped_epoch))
+    f.write("mgnet256_{}_wd{}_p{}_delta{}_finalaccu = {}\n".format(args.data, sign_wd, args.patience, sign_delta, test_accuracy_list[-1]))
+
     f.write("\n")
     
     
