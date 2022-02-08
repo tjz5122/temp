@@ -38,10 +38,10 @@ test_param_groups["truncate_group"] = [0.02]
 test_param_groups["ministat_group"] = [100]
 test_param_groups["keymode_group"] = ["loss_plus_smooth"]
 test_param_groups["varmode_group"] = ["bm"]
-test_param_groups["data_group"] = ["cifar10"] #["cifar10", "cifar100"]
+test_param_groups["data_group"] = ["cifar100"] #["cifar10", "cifar100"]
 test_param_groups["validsize_group"] = [0.2] 
-test_param_groups["patience_group"] = [2,5,8,13,17] 
-test_param_groups["delta_group"] = [0] 
+test_param_groups["patience_group"] = [65,70,75] 
+test_param_groups["delta_group"] = [0, 0.0001, 0.0003, 0.0005] 
 
 
 
