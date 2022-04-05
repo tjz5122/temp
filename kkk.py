@@ -557,6 +557,7 @@ for epoch in range(num_epochs):
     lr_list.append(current_lr)
     
 
+print(test_accuracy_list)
 
 f = open("test", 'w')
 f.write("SGD_"+ str(my_model) +"_testacculist = {}\n".format(test_accuracy_list))
