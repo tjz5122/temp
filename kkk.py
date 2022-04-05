@@ -531,10 +531,8 @@ for epoch in range(num_epochs):
           if use_cuda:
               images = images.cuda()
               labels = labels.cuda()  
-          if my_model == "mgnet128" or my_model == "mgnet256":
-              outputs = my_model(0,images)   # We need additional 0 input for u in MgNet
-          else:
-              outputs = my_model(images) 
+            
+          outputs = my_model(0,images)   # We need additional 0 input for u in MgNet
           p_max, predicted = torch.max(outputs, 1) 
           total += labels.size(0)
           correct += (predicted == labels).sum()
