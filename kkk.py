@@ -559,7 +559,7 @@ for epoch in range(num_epochs):
 
 
 f = open("test", 'w')
-f.write("SGD_"+ my_model +"_testacculist = {}\n".format(test_accuracy_list))
-f.write("SGD_"+ my_model +"_lrlist = np.log10(array({}))\n".format(lr_list))
+f.write("SGD_"+ str(my_model) +"_testacculist = {}\n".format(test_accuracy_list))
+f.write("SGD_"+ str(my_model) +"_lrlist = np.log10(array({}))\n".format(lr_list))
 f.write("\n")
 f.close()
