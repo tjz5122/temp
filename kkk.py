@@ -455,7 +455,7 @@ def adjust_learning_rate(optimizer, epoch, init_lr):
 
 # Step 1: Define a model
 my_model = MgNet(num_channel_input, num_iteration, 128, 128, num_classes)
-nn.init.kaiming_uniform_(my_model.conv1.weight, nonlinearity='relu')
+#nn.init.kaiming_uniform_(my_model.conv1.weight, nonlinearity='relu')
 
 if use_cuda:
     my_model= my_model.cuda()
