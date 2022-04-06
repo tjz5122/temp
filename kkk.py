@@ -429,7 +429,7 @@ num_epochs = 150
 lr = 0.1
 num_iteration = [2,2,2,2] # for each layer do 1 iteration or you can change to [2,2,2,2] or [2,1,1,1]
 minibatch_size = 128
-wd = 0.0005 
+wd = 0.0001
 momentum = 0.9
 dampening = 0.9
 
@@ -455,7 +455,7 @@ def adjust_learning_rate(optimizer, epoch, init_lr):
 
 # Step 1: Define a model
 my_model = MgNet(num_channel_input, num_iteration, 128, 128, num_classes)
-#nn.init.kaiming_uniform_(my_model.conv1.weight, nonlinearity='relu')
+nn.init.kaiming_uniform_(my_model.conv1.weight, nonlinearity='relu')
 
 if use_cuda:
     my_model= my_model.cuda()
