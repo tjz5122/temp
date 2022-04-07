@@ -133,7 +133,7 @@ def load_test(model,CHECKPOINT_NAME):
         print(f'Restored checkpoint from {CHECKPOINT_NAME}.')
         return epoch
 
-def train_process(model,save_name,num_epochs,lr,trainloader,testloader):
+def train_process(model,num_epochs,lr,trainloader,testloader):
     test_acc = []
     if use_cuda:
         model = model.cuda()
@@ -190,8 +190,9 @@ def train_process(model,save_name,num_epochs,lr,trainloader,testloader):
                 correct += (predicted == labels).sum()
         test_accuracy = float(correct)/total
         test_acc.append(test_accuracy)
+        
         if test_accuracy>Test_acc:
-            save(model, optimizer,save_name,epoch)
+            #save(model, optimizer,save_name,epoch)
             Test_acc = test_accuracy
 
         logger.info('Epoch:{}, lr:{:.6f}, train acc:{:.4f}, test acc:{:.4f}, best acc:{:.4f}'.\
@@ -224,11 +225,11 @@ if __name__ == "__main__":
     print('Use GPU?', use_cuda)
     
     logger = get_logger(args.logger_name)
-    save_name = './save_model/{}.pth'.format('test')
+    #save_name = './save_model/{}.pth'.format('test')
     logger.info(str(args))
     trainloader,testloader,num_classes = load_data(args.path,args.minibatch_size,args.dataset)
     model = MgNet(args,num_classes=num_classes)
     if use_cuda:
         model =model.cuda()
-    train_acc,test_max_acc,test_last_acc = train_process(model,save_name,args.num_epoch,args.lr,trainloader,testloader)
+    train_acc,test_max_acc,test_last_acc = train_process(model,args.num_epoch,args.lr,trainloader,testloader)
     print(train_acc)
