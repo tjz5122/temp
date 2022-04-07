@@ -231,3 +231,4 @@ if __name__ == "__main__":
     if use_cuda:
         model =model.cuda()
     train_acc,test_max_acc,test_last_acc = train_process(model,save_name,args.num_epoch,args.lr,trainloader,testloader)
+    print(train_acc)
