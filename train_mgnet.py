@@ -105,7 +105,7 @@ def load_data(path,minibatch_size,dataset):
         num_classes = 100
     
     return trainloader,testloader,num_classes
-
+'''
 def save(model, optimizer,CHECKPOINT_NAME, epoch):
     torch.save({
         'epoch': epoch,
@@ -113,7 +113,7 @@ def save(model, optimizer,CHECKPOINT_NAME, epoch):
         'optimizer_state_dict': optimizer.state_dict(),
     }, CHECKPOINT_NAME)
     print(f'Save checkpoint from {CHECKPOINT_NAME}.')
-
+'''
 
 def load(model, optimizer,CHECKPOINT_NAME):
     if os.path.exists(CHECKPOINT_NAME):
