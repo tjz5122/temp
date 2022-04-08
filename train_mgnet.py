@@ -200,7 +200,7 @@ def train_process(model,num_epochs,lr,trainloader,testloader):
 
     #end = timer()
     logger.info('last_train_acc:{:.4f},max_acc:{:.4f},last_acc:{:.4f}'.format(training_accuracy,np.max(test_acc),test_accuracy))
-    return training_accuracy,np.max(test_acc),test_accuracy
+    return training_accuracy,np.max(test_acc),test_accuracy,test_acc
     
     
 if __name__ == "__main__":
@@ -213,7 +213,7 @@ if __name__ == "__main__":
     parser.add_argument('--num-channel-f', type=int, help='number of channels of f', default=256)
     parser.add_argument('--wise-B', action='store_true', help='different B in different grid')
     parser.add_argument('--minibatch-size',type=int,default=128)
-    parser.add_argument('--num-epoch',type=int,default=300)
+    parser.add_argument('--num-epoch',type=int,default=150)
     parser.add_argument('--lr',type=float,default=0.1)
     parser.add_argument('--logger-name',type=str,default='./mgnet_test.log')
     
@@ -231,6 +231,6 @@ if __name__ == "__main__":
     model = MgNet(args,num_classes=num_classes)
     if use_cuda:
         model =model.cuda()
-    train_acc,test_max_acc,test_last_acc = train_process(model,args.num_epoch,args.lr,trainloader,testloader)
-    print(train_acc)
+    train_acc,test_max_acc,test_last_acc,test_accu_list = train_process(model,args.num_epoch,args.lr,trainloader,testloader)
+    print(test_accu_list)
     
