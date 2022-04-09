@@ -17,7 +17,7 @@ from timeit import default_timer as timer
 import numpy as np
 import logging
 from mgnet import MgNet
-
+from ssm import SSM
 '''
 \fn get_logger(filename, verbosity=1, name=None)
 \brief This function . 
