@@ -222,6 +222,7 @@ if __name__ == "__main__":
     parser.add_argument('--lr',type=float,default=0.1)
     parser.add_argument('--logger-name',type=str,default='./mgnet_test.log')
     parser.add_argument('--momentum', default=0.9, type=float, metavar='M', help='momentum')
+    parser.add_argument('--dampening', default=0.9, type=float, metavar='D', help='dampening')
 
     
     #training hyperparamter
@@ -232,7 +233,6 @@ if __name__ == "__main__":
     parser.add_argument('--samplefreq', '--sf', metavar='samplefreq', default=10, type=int, help='sampling frequency (default: 10)')
     parser.add_argument('--varmode', '--vm', metavar='variance_mode', default="bm", type=str, help='variance mode (default: bm)')
     parser.add_argument('--keymode', '--km', metavar='key_mode', default="loss_plus_smooth", type=str, help='key mode (default: loss_plus_smooth')
-    parser.add_argument('--dampening', default=0.9, type=float, metavar='D', help='dampening')
     parser.add_argument('--drop', default = 10, type=int, help='learning rate drop factor')
 
     args = parser.parse_args()
