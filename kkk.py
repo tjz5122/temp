@@ -221,6 +221,7 @@ if __name__ == "__main__":
     parser.add_argument('--epoch',type=int,default=150)
     parser.add_argument('--lr',type=float,default=0.1)
     parser.add_argument('--logger-name',type=str,default='./mgnet_test.log')
+    parser.add_argument('--weight-decay', '--wd', default=0.0005, type=float, metavar='W', help='weight decay (e.g. 5e-4)')
     parser.add_argument('--momentum', default=0.9, type=float, metavar='M', help='momentum')
     parser.add_argument('--dampening', default=0.9, type=float, metavar='D', help='dampening')
 
