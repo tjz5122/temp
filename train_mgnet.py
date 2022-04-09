@@ -44,9 +44,13 @@ def get_logger(filename, verbosity=1, name=None):
 \fn adjust_learning_rate(optimizer, epoch, init_lr)
 \brief This function adjust the learning rate during the training process.
 '''
-def adjust_learning_rate(optimizer, epoch, init_lr):
+def adjust_learning_rate(optimizer, epoch, init_lr, dataset):
     #lr = 1.0 / (epoch + 1)
-    lr = init_lr * 0.1 ** (epoch // 50)
+    if dataset == 'mnist':
+        decrease_rate = 50
+    else:
+        decrease_rate = 30
+    lr = init_lr * 0.1 ** (epoch // decrease_rate)
     for param_group in optimizer.param_groups:
         param_group['lr'] = lr
     return lr
@@ -133,7 +137,7 @@ def load_test(model,CHECKPOINT_NAME):
         print(f'Restored checkpoint from {CHECKPOINT_NAME}.')
         return epoch
 
-def train_process(model,num_epochs,lr,trainloader,testloader):
+def train_process(model,num_epochs,lr,trainloader,testloader, dataset):
     test_acc = []
     if use_cuda:
         model = model.cuda()
@@ -144,7 +148,7 @@ def train_process(model,num_epochs,lr,trainloader,testloader):
     start = timer()
     Test_acc = 0
     for epoch in range(1,num_epochs+1):
-        current_lr = adjust_learning_rate(optimizer, epoch, lr)
+        current_lr = adjust_learning_rate(optimizer, epoch, lr, dataset)
 
         model.train()
         for i, (images, labels) in enumerate(trainloader):
@@ -231,6 +235,6 @@ if __name__ == "__main__":
     model = MgNet(args,num_classes=num_classes)
     if use_cuda:
         model =model.cuda()
-    train_acc,test_max_acc,test_last_acc,test_accu_list = train_process(model,args.num_epoch,args.lr,trainloader,testloader)
+    train_acc,test_max_acc,test_last_acc,test_accu_list = train_process(model,args.num_epoch,args.lr,trainloader,testloader, args.dataset)
     print(test_accu_list)
     
