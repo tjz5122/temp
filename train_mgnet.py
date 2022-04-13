@@ -210,7 +210,7 @@ def train_process(model,num_epochs,lr,trainloader,testloader, dataset):
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser(description='MgNet test')
-    parser.add_argument('--dataset',type=str, default='cifar10')
+    parser.add_argument('--dataset',type=str, default='cifar100')
     parser.add_argument('--path',type=str,default='./Data')
     parser.add_argument('--num-ite', type=str, help='The number of ite. in four level(layer). Use with 2,2,2,2 or 3,4,5,6.', default='2,2,2,2')
     parser.add_argument('--num-channel-u', type=int, help='number of channels of u', default=256)
