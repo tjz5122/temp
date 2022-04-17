@@ -107,7 +107,7 @@ def load_optimizer(args, model, testfreq):
                   leak_ratio=args.lk, minN_stats=args.minstat, samplefreq=args.sf, significance=args.sig, drop_factor=args.df, trun=args.trun)
     if args.optim == "sasa+":
         return SASAplus(model.parameters(), lr=args.lr, weight_decay=args.wd, momentum=args.momentum, testfreq=testfreq, drop_factor=args.drop, 
-                        significance=args.sig, var_mode=args.varmode, minN_stats=args.minstat, leak_ratio=args.lk) #warmup=warmup, logstats=logstats, qhm_nu=qhm_nu)
+                        significance=args.sig, var_mode=args.vm, minN_stats=args.minstat, leak_ratio=args.lk) #warmup=warmup, logstats=logstats, qhm_nu=qhm_nu)
     if args.optim == "sgd":
         return optim.SGD(model.parameters(), lr=args.lr, momentum=args.momentum, weight_decay = args.wd)
 
