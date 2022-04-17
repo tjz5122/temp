@@ -163,7 +163,7 @@ def train_process(trainloader, testloader, optimizer, model, args):
     max_test_accu = 0
     for epoch in range(1,args.epochs+1):
         if args.optim == "sgd":
-            current_lr, optimizer = adjust_learning_rate(optimizer, epoch, args.lr, args.dataset)
+            current_lr, optimizer = adjust_learning_rate(optimizer, epoch, args)
         else:
             current_lr = optimizer.state['lr']
         lr_list.append(current_lr)
