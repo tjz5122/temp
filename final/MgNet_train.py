@@ -104,7 +104,7 @@ def load_data(path,minibatch_size,dataset):
 def load_optimizer(args, model, testfreq):
     if args.optim == "ssm":
        return SSM(model.parameters(), lr=args.lr, weight_decay=args.wd, momentum=args.momentum, dampening=args.dampening, testfreq=testfreq, var_mode=args.vm, mode=args.km,
-                  leak_ratio=args.lk, minN_stats=args.minstats, samplefreq=args.sf, significance=args.sig, drop_factor=args.df, trun=args.trun)
+                  leak_ratio=args.lk, minN_stats=args.minstat, samplefreq=args.sf, significance=args.sig, drop_factor=args.df, trun=args.trun)
     if args.optim == "sasa+":
         return SASAplus(model.parameters(), lr=args.lr, weight_decay=args.wd, momentum=args.momentum, testfreq=testfreq, drop_factor=args.drop, 
                         significance=args.sig, var_mode=args.varmode, minN_stats=args.minstat, leak_ratio=args.lk) #warmup=warmup, logstats=logstats, qhm_nu=qhm_nu)
