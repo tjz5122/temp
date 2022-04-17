@@ -231,6 +231,7 @@ if __name__ == "__main__":
     
     #training hyperparamters
     parser = argparse.ArgumentParser(description='optimizer test')
+    parser.add_argument('--cuda',  action='store_true', help='use cuda')
     parser.add_argument('--dataset',type=str, default='cifar10')
     parser.add_argument('--path',type=str,default='./Data')
     parser.add_argument('--num-ite', type=str, help='The number of ite. in four level(layer). Use with 2,2,2,2 or 3,4,5,6.', default='2,2,2,2')
@@ -243,13 +244,8 @@ if __name__ == "__main__":
     parser.add_argument('--wd', default=0.0005, type=float, metavar='W', help='weight decay (e.g. 5e-4)')
     parser.add_argument('--momentum', default=0.9, type=float, metavar='M', help='momentum')
     parser.add_argument('--dampening', default=0.9, type=float, metavar='D', help='dampening')
-
-    
-    #other hyperparamters
     parser.add_argument('--optim',type=str, default='ssm')
-
-    
-    
+ 
     #unique hyperparamters for SSM
     parser.add_argument('--trun', metavar='truncate', default=0.02, type=float,  help='truncate value (default: 0.02)')
     parser.add_argument('--sig', metavar='significance', default=0.05, type=float,  help='significance level (default: 0.05)')
