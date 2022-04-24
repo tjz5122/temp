@@ -278,7 +278,7 @@ if __name__ == "__main__":
     if args.optim == "sgd":
         name = "SGD_mgnet{}_".format(args.channel)
     elif args.optim == "sasa+":
-        name = "SASAplus_mgnet{}_".format(args.channel)
+        name = "SASAplus_mgnet{}_sig{}_lk{}_min{}_drop{}_".format(args.channel, str(args.sig)[-1], args.lk, args.minstat, args.drop)
     elif args.optim == "ssm":
         name = "SSM_mgnet{}_trun{}_sig{}_lk{}_min{}_sf{}_drop{}_".format(args.channel, str(args.trun)[-1], str(args.sig)[-1], args.lk, args.minstat, args.sf, args.drop)
     
