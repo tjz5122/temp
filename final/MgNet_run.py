@@ -22,7 +22,7 @@ def run_command(env):
 
 
 test_param_groups = {}
-test_param_groups["optim_group"] = ['ssm','sasa+','sgd']          
+test_param_groups["optim_group"] = ['ssm']          
 test_param_groups["dataset_group"] = ['cifar10']     
 test_param_groups["channel_group"] = [256] 
 test_param_groups["minibatchsize_group"] = [128]
