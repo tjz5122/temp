@@ -36,7 +36,7 @@ test_param_groups["lk_group"] = [8,10,12]
 test_param_groups["minstat_group"] = [75, 85, 100]
 test_param_groups["sf_group"] = [10, 15]
 test_param_groups["vm_group"] = ['bm'] 
-test_param_groups["km_group"] = ['loss_plus_smooth'] 
+test_param_groups["km_group"] = ['loss_plus_smooth', 'loss'] 
 test_param_groups["drop_group"] = [10] 
 
 # flexible
